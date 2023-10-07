@@ -310,7 +310,8 @@ namespace Bloxstrap
             {
                 FileName = _playerLocation,
                 Arguments = _launchCommandLine,
-                WorkingDirectory = _versionFolder
+                WorkingDirectory = _versionFolder,
+                UseShellExecute = true
             };
 
             // v2.2.0 - byfron will trip if we keep a process handle open for over a minute, so we're doing this now
