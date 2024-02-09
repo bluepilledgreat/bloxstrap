@@ -6,6 +6,8 @@ using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
 using Bloxstrap.UI.ViewModels.Menu;
+using System.Windows.Interop;
+using System.Windows;
 
 namespace Bloxstrap.UI.Elements.Menu
 {
@@ -22,6 +24,16 @@ namespace Bloxstrap.UI.Elements.Menu
             App.Logger.WriteLine("MainWindow::MainWindow", "Initializing menu");
 
             DataContext = new MainWindowViewModel(this);
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+
+            if (hwndSource != null)
+                hwndSource.CompositionTarget.RenderMode = RenderMode.SoftwareOnly;
+
+            base.OnSourceInitialized(e);
         }
 
         public void OpenWiki(object? sender, EventArgs e) => Utilities.ShellExecute($"https://github.com/{App.ProjectRepository}/wiki");
